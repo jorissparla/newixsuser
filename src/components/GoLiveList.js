@@ -4,6 +4,7 @@ import {List, ListItem} from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import Subheader from 'material-ui/Subheader';
 import Avatar from 'material-ui/Avatar';
+import UserAvatar  from 'react-user-avatar'
 import {grey400, darkBlack, lightBlack} from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
@@ -18,6 +19,12 @@ import small from '../../assets/small.jpg'
 
 const getDay = date => moment(date).format('MMM').toUpperCase().substr(0, 3) + moment(date).format('DD')
 
+const colorAr = ['#BA68C8', '#81D4FA', '#FF7043','#8BC34A','#FFFF00','#E57373']
+
+function getColor(index, colorAr) {
+  return colorAr[index % colorAr.length]
+}
+
 class GoLiveList extends React.Component {
 
   componentDidMount () {
@@ -26,11 +33,20 @@ class GoLiveList extends React.Component {
   
   renderGoLives(golives) {
     const {iconStyle, avatarStyle, dateStyle}= styles
-    return golives.map(item => {
+    return golives.map((item, index) => {
       return (
-        <div>
-      <ListItem
-          leftAvatar={<div style={avatarStyle } ><Avatar src={small} /><div style={dateStyle}>{getDay(item.date)}</div></div>}
+        <div key={item.customername}>
+
+      <ListItem 
+          leftAvatar={<div style={avatarStyle } >
+          <UserAvatar 
+            size="48" 
+            style={{ fontFamily:'Oswald', fontSize:'18px'}} 
+            name={item.customername} 
+            color={getColor(index, colorAr)}
+            colors={['#BA68C8', '#81D4FA', '#FF7043','#8BC34A','#FFFF00','#E57373']}
+          /> 
+          <div style={dateStyle}>{getDay(item.date)}</div></div>}
           primaryText={item.customername}
           secondaryText={
             <p>
@@ -38,8 +54,10 @@ class GoLiveList extends React.Component {
               </p>
           }
           secondaryTextLines={2}
+          rightAvatar={ <div style={{ fontWeight:'bold'}}>{item.version}</div>}
       />
-      <Divider inset={true} /></div>
+      <Divider inset={true} />
+      </div>
       )
     })
   }
@@ -51,7 +69,7 @@ class GoLiveList extends React.Component {
       return <div>Loading</div>
     }
     return (
-      <List style={listStyle}>  
+      <List style={listStyle}> 
         <Subheader style={subheaderStyle}>Go Lives</Subheader>
         <Divider inset={true} />
         {this.renderGoLives(golives)}
@@ -67,7 +85,7 @@ const styles = {
   },
   subheaderStyle : { 
     fontSize: 56, 
-    fontFamily: 'Billabong',
+    fontFamily: 'Oswald',
     color: 'dodgerblue',
     marginLeft: 20,
     marginTop: 20,
