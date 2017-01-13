@@ -33,6 +33,7 @@
     "image-webpack-loader": "3.1.0",
     "rimraf": "2.5.4",
     "style-loader": "0.13.1",
+    "transform-runtime": "0.0.0",
     "url-loader": "0.5.7",
     "webpack": "2.2.0-rc.4",
     "webpack-dev-server": "2.2.0-rc.0"
