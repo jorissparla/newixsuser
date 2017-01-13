@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import promise from 'redux-promise'
+var Promise = require('es6-promise').Promise;
 import reduxThunk from 'redux-thunk';
 import reducers from './src/reducers'
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
