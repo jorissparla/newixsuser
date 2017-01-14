@@ -19,6 +19,7 @@ const styles = {
     display: 'flex',
     flex: 1,
     marginTop: '5px',
+    alignItems: 'space-between'
   }
 };
 

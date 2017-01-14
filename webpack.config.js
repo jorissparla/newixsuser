@@ -4,7 +4,7 @@ module.exports = {
   entry:  ['babel-polyfill','./index.js'],
   output: {
     path: path.resolve(__dirname, '_js'),
-    filename: 'golives.js',
+    filename: 'newixsuser.js',
     publicPath: '_js/'
   },
   module: {
@@ -33,6 +33,6 @@ module.exports = {
 
   },
   plugins: [
-    new ExtractTextPlugin('style.css')
+    new ExtractTextPlugin('newisxuser_style.css')
   ]
 }

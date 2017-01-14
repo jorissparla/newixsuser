@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import { GoLivesReducer}  from './reducer_golives';
+import { NewIXSUserReducer}  from './reducer_newixsuser';
+import { reducer as formReducer } from 'redux-form'
 
 const rootReducer = combineReducers({
-  golives: GoLivesReducer
+  main: NewIXSUserReducer,
+  form: formReducer
 });
 
 export default rootReducer;

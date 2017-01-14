@@ -1,0 +1,9 @@
+.litem:hover {
+  font-size: 24px;
+  
+}
+
+.litem {
+  font-size: 18px;
+  transition: 1s all;
+}

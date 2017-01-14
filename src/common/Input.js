@@ -1,20 +1,21 @@
 import React, {Component} from 'react'
 import  {TextField} from 'redux-form-material-ui'
 
-const Input = ({ label, value, onChangeText, placeholder, secureTextEntry, style, ...rest }) => {
+const Input = ({ label, value, onChangeText, secureTextEntry, style, ...rest }) => {
   const { containerStyle, inputStyle, labelStyle } = styles
+  const mergedStyle = {...inputStyle, ...style }
   
   return (
       <TextField 
-        hintText={placeholder}
+        hintText={label}
         floatingLabelText={label}
         autoCorrect={false}
-        inputStyle={inputStyle }
-        value={value}
+        //onChangeText={ onChangeText}
+        inputStyle={mergedStyle}
         name={name}
         underlineShow={false}
         floatingLabelFixed={true}
-        floatingLabelStyle={{ fontSize: '18px', marginLeft: '5px'}}
+        floatingLabelStyle={{ fontSize: '15px', marginLeft: '5px'}}
         {...rest}
         />
   )
@@ -25,7 +26,8 @@ const styles = {
     color: '#000',
     paddingLeft: '10px',
     fontSize: '18px',
-    flex: 1
+    flex: 1,
+    marginRight: '10px'
   },
   labelStyle: {
     fontSize: 18,
