@@ -26,7 +26,7 @@ export default class DialogExampleAlert extends React.Component {
 
   handleClose = () => {
     this.setState({open: false});
-    window.location.replace(this.props.url|| '/');
+   // window.location.replace(this.props.url|| '/');
   };
   componentDidMount () {
      this.setState({open: true});
