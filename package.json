@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf _js",
-    "build": "npm run clean && webpack -p",
+    "build": "yarn run clean && webpack -p",
     "start": "webpack -p"
   },
   "author": "Joris Sparla <joris.sparla@gmail.com> (http://www.sparlanuenen.com/)",

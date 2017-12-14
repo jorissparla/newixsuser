@@ -1,7 +1,7 @@
 const path = require('path')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 module.exports = {
-  entry:  ['babel-polyfill','./index.js'],
+  entry:  ['./index.js'],
   output: {
     path: path.resolve(__dirname, '_js'),
     filename: 'newixsuser.js',
