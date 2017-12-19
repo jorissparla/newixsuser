@@ -25,7 +25,7 @@ const mapUsers = users =>
     return { key: login, description: `${firstName} ${lastName}` };
   });
 
-const regions = ['EMEA', 'APJ', 'NA'];
+const regions = ['EMEA', 'APJ', 'NA', 'LA'];
 //console.log('mappedUsers',mappedUsers)
 
 const buttonStyle = {
@@ -46,18 +46,11 @@ const dataSourceConfig = {
 
 const required = value => (value == null ? 'Required' : undefined);
 const email = value =>
-  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-    ? 'Invalid email'
-    : undefined;
+  value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email' : undefined;
 
 const { func, string } = React.PropTypes;
 
-const AutoComplete = ({
-  input,
-  meta: { touched, error },
-  dataSourceConfig,
-  ...rest
-}) => (
+const AutoComplete = ({ input, meta: { touched, error }, dataSourceConfig, ...rest }) => (
   <MUIAutoComplete
     {...input}
     {...rest}
@@ -126,11 +119,7 @@ let AccountAddForm = React.createClass({
           </CardSection>
           <Divider />
           <CardSection>
-            <Field
-              name="navid"
-              floatingLabelText="Navigator Id"
-              component={Input}
-            />
+            <Field name="navid" floatingLabelText="Navigator Id" component={Input} />
             <Field
               name="fullName"
               floatingLabelText="Full Name"
@@ -143,12 +132,7 @@ let AccountAddForm = React.createClass({
           </CardSection>
           <Divider />
           <CardSection>
-            <Field
-              name="email"
-              floatingLabelText="Email"
-              component={Input}
-              type="text"
-            />
+            <Field name="email" floatingLabelText="Email" component={Input} type="text" />
             <Field
               name="team"
               component={AutoComplete}
@@ -192,7 +176,7 @@ let AccountAddForm = React.createClass({
             <RaisedButton
               primary={true}
               style={buttonStyle}
-              label="Submit"
+              label={`Submit to ${env.SERVER}`}
               type="submit"
             />
             <RaisedButton
