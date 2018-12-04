@@ -1,5 +1,8 @@
 import React from 'react';
+<<<<<<< HEAD
 import Dialog from 'material-ui/Dialog';
+=======
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
 import { connect } from 'react-redux';
 import {
   fetchTeams,
@@ -36,14 +39,22 @@ const AccountWrapper = React.createClass({
   getInitialState() {
     return {
       open: false,
+<<<<<<< HEAD
       err: '',
       showsubmit: false,
       values: ''
+=======
+      err: ''
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
     };
   },
   componentDidMount() {
     this.props.fetchTeams().then(() => {
       let err = 'You are not authorized';
+<<<<<<< HEAD
+=======
+
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
       //this.setState({ open: true, err:err})
     });
     this.props.fetchLocations();
@@ -53,17 +64,27 @@ const AccountWrapper = React.createClass({
     console.log('mode', this.props.mode);
   },
   doSubmit(values) {
+<<<<<<< HEAD
     this.setState({
       values: JSON.stringify(values, null, 2),
       showsubmit: true
     });
+=======
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
     window.alert(`You submitted Parent:\n\n${JSON.stringify(values, null, 2)}`);
     this.props
       .updateGuest(values)
       .then(data => {
         console.log('success', data);
+<<<<<<< HEAD
         let err = !data.payload.message ? 'success' : data.payload.message;
         this.setState({ open: true, err: err }).then(() => {});
+=======
+
+        //let err = (!data.payload.message) ? 'success' : data.payload.message
+
+        //this.setState({ open: true, err:err})
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
       })
       .catch(error => console.log('error', error));
     console.log('Submit', values);
@@ -75,7 +96,12 @@ const AccountWrapper = React.createClass({
 
   render() {
     const { teams, locations, guests, newusers, mode, accounts } = this.props;
+<<<<<<< HEAD
     if (this.state.err) return <AlertDialog message={this.state.err} url="/" />;
+=======
+    if (this.state.err)
+      return <AlertDialog message={this.state.err} url="/ixs" />;
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
     if (!newusers || !teams || !guests || !newusers) return <div>Loading</div>;
     // create list of new entries in account table
     const unmappedGuests = guests.map(guest => guest.login);

@@ -11,10 +11,17 @@ import Divider from 'material-ui/Divider';
 import { AutoComplete as MUIAutoComplete } from 'material-ui';
 import { CardSection, Input } from '../common';
 import NewUserList from './NewUsers';
+<<<<<<< HEAD
 import { Title } from './title';
 
 import {
   TextField,
+=======
+
+import {
+  TextField,
+
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
   //AutoComplete,
   SelectField
 } from 'redux-form-material-ui';
@@ -25,7 +32,11 @@ const mapUsers = users =>
     return { key: login, description: `${firstName} ${lastName}` };
   });
 
+<<<<<<< HEAD
 const regions = ['EMEA', 'APJ', 'NA', 'LA'];
+=======
+const regions = ['EMEA', 'APJ', 'NA'];
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
 //console.log('mappedUsers',mappedUsers)
 
 const buttonStyle = {
@@ -46,11 +57,26 @@ const dataSourceConfig = {
 
 const required = value => (value == null ? 'Required' : undefined);
 const email = value =>
+<<<<<<< HEAD
   value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email' : undefined;
 
 const { func, string } = React.PropTypes;
 
 const AutoComplete = ({ input, meta: { touched, error }, dataSourceConfig, ...rest }) => (
+=======
+  (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+    ? 'Invalid email'
+    : undefined);
+
+const { func, string } = React.PropTypes;
+
+const AutoComplete = ({
+  input,
+  meta: { touched, error },
+  dataSourceConfig,
+  ...rest
+}) => (
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
   <MUIAutoComplete
     {...input}
     {...rest}
@@ -83,7 +109,13 @@ let AccountAddForm = React.createClass({
     console.log('reset', reset, handleSubmit);
     return (
       <div>
+<<<<<<< HEAD
         <Title>Add New User</Title>
+=======
+        <CardSection style={{ fontSize: '36px', fontFamily: 'Oswald' }}>
+          Add New User
+        </CardSection>
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
         <form onSubmit={handleSubmit(this.props.onSave)}>
           <CardSection>
             <Field
@@ -121,6 +153,14 @@ let AccountAddForm = React.createClass({
           <CardSection>
             <Field name="navid" floatingLabelText="Navigator Id" component={Input} />
             <Field
+<<<<<<< HEAD
+=======
+              name="navid"
+              floatingLabelText="Navigator Id"
+              component={Input}
+            />
+            <Field
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
               name="fullName"
               floatingLabelText="Full Name"
               component={Input}
@@ -134,6 +174,15 @@ let AccountAddForm = React.createClass({
           <CardSection>
             <Field name="email" floatingLabelText="Email" component={Input} type="text" />
             <Field
+<<<<<<< HEAD
+=======
+              name="email"
+              floatingLabelText="Email"
+              component={Input}
+              type="text"
+            />
+            <Field
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
               name="team"
               component={AutoComplete}
               openOnFocus={true}
@@ -176,7 +225,11 @@ let AccountAddForm = React.createClass({
             <RaisedButton
               primary={true}
               style={buttonStyle}
+<<<<<<< HEAD
               label={`Submit to ${env.SERVER}`}
+=======
+              label="Submit"
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
               type="submit"
             />
             <RaisedButton
@@ -190,6 +243,7 @@ let AccountAddForm = React.createClass({
         </form>
         <Divider />
 
+<<<<<<< HEAD
         {/* <CardSection style={{ width: '600px'}}>
         <NewUserList users={mappedUsers} />
       </CardSection>
@@ -199,10 +253,25 @@ let AccountAddForm = React.createClass({
   }
 });
 
+=======
+        <CardSection style={{ width: '600px' }}>
+          <NewUserList users={mappedUsers} />
+        </CardSection>
+
+      </div>
+    );
+  }
+});
+
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
 AccountAddForm = reduxForm({
   form: 'newixsuser',
   enableReinitialize: true,
   keepDirtyOnReinitialize: true
+<<<<<<< HEAD
+=======
+
+>>>>>>> b2c223cd98d81081a0969bebe738ab5e2797d837
   // a unique identifier for this form
 })(AccountAddForm);
 
