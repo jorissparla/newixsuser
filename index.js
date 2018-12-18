@@ -10,7 +10,7 @@ import Select from 'react-select';
 import styled from 'styled-components';
 
 const client = new ApolloClient({
-  link: createHttpLink({ uri: 'http://nlbavwixs.infor.com:4000' }),
+  link: createHttpLink({ uri: 'http://localhost:4000' }),
   cache: new InMemoryCache()
 });
 
@@ -38,13 +38,13 @@ const QUERY_SUPPORT_FOLKS = gql`
     }
     locations {
       id
-      value: key
-      label: description
+      key
+      description
     }
     teams {
       id
-      value: key
-      label: description
+      key
+      description
     }
   }
 `;
@@ -177,6 +177,14 @@ function SingleValue(props) {
   return <Single {...props.innerProps}>{props.children}</Single>;
 }
 
+const regions = [
+  { value: 'EMEA', label: 'EMEA' },
+  { value: 'APJ', label: 'APJ' },
+  { value: 'NA', label: 'NA' },
+  { value: 'LA', label: 'LA' },
+  { value: 'GLB', label: 'GLOBAL' }
+];
+
 function useAccount(client) {
   const [result, setResult] = useState({});
   async function updateAccount(variables) {
@@ -205,6 +213,7 @@ function useStyledSelect({ placeholder, options, components }) {
 function Index() {
   const [team, setTeam] = useState('');
   const [location, setLocation] = useState('');
+  const [region, setRegion] = useState('EMEA');
   const [user, setUser] = useState({});
   //const updateAccount = useAccount(client);
   // console.log('updatAccount', updateAccount);
@@ -223,8 +232,23 @@ function Index() {
           ...guest,
 
           value: guest.navid,
-          label: guest.firstname + ' ' + guest.lastname
+          label: guest.firstname + ' ' + guest.lastname,
+          fullname: guest.firstname + ' ' + guest.lastname,
+          email: guest.firstname + '.' + guest.lastname + '@infor.com'
         }));
+
+        const teamsAr = teams.map(team => ({
+          ...team,
+          label: team.description,
+          value: team.key
+        }));
+        const locationsAr = locations.map(location => ({
+          ...location,
+          label: location.description,
+          value: location.key
+        }));
+        const inputvalues = { ...user, team, location, region };
+        console.log(inputvalues);
         return (
           <Papier>
             <Header>Create a new User</Header>
@@ -232,19 +256,23 @@ function Index() {
               placeholder="Select a new user from the list"
               options={options}
               onChange={e => {
-                console.log(e);
                 setUser(e);
               }}
             />
             <StyledSelect
               placeholder="Select a team from the list"
-              options={teams}
+              options={teamsAr}
               onChange={e => setTeam(e.value)}
             />
             <StyledSelect
               placeholder="Select a location"
-              options={locations}
+              options={locationsAr}
               onChange={e => setLocation(e.value)}
+            />
+            <StyledSelect
+              placeholder="Select a region"
+              options={regions}
+              onChange={e => setRegion(e.value)}
             />
             <StyledSelect
               placeholder="Select a new user from the list"
@@ -257,7 +285,20 @@ function Index() {
                 {updateEmployee => (
                   <Button
                     onClick={async () => {
-                      const input = { id: user.id, firstname: user.firstname };
+                      const { id, firstname, lastname, fullname, navid, login } = user;
+                      let input = {
+                        id,
+                        firstname,
+                        lastname,
+                        fullname,
+                        navid,
+                        login,
+                        team,
+                        location,
+                        region
+                      };
+                      delete input.value;
+                      delete input.label;
                       console.log({ variables: { input } });
                       const result = await updateEmployee({ variables: { input } });
                       console.log('result', result);
@@ -267,7 +308,12 @@ function Index() {
                   </Button>
                 )}
               </Mutation>
-              <Button color="#fd7272">Cancel</Button>
+              <Button
+                onClick={() => window.location.replace('http://nlbavwixs.infor.com/ixs')}
+                color="#fd7272"
+              >
+                Cancel
+              </Button>
             </Wrapper>
             <div>
               {team}:{location}:{user.label}

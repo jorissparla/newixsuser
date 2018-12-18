@@ -62917,7 +62917,7 @@ function _templateObject3() {
 }
 
 function _templateObject2() {
-  var data = (0, _taggedTemplateLiteral2.default)(["\n  query QUERY_SUPPORT_FOLKS {\n    newguests {\n      id\n      login\n      firstname\n      lastname\n      navid\n    }\n    supportfolks {\n      fullname\n      image\n      navid\n    }\n    locations {\n      id\n      value: key\n      label: description\n    }\n    teams {\n      id\n      value: key\n      label: description\n    }\n  }\n"]);
+  var data = (0, _taggedTemplateLiteral2.default)(["\n  query QUERY_SUPPORT_FOLKS {\n    newguests {\n      id\n      login\n      firstname\n      lastname\n      navid\n    }\n    supportfolks {\n      fullname\n      image\n      navid\n    }\n    locations {\n      id\n      key\n      description\n    }\n    teams {\n      id\n      key\n      description\n    }\n  }\n"]);
 
   _templateObject2 = function _templateObject2() {
     return data;
@@ -62938,7 +62938,7 @@ function _templateObject() {
 
 var client = new _apolloClient.ApolloClient({
   link: (0, _apolloLinkHttp.createHttpLink)({
-    uri: 'http://nlbavwixs.infor.com:4000'
+    uri: 'http://localhost:4000'
   }),
   cache: new _apolloCacheInmemory.InMemoryCache()
 });
@@ -63018,6 +63018,23 @@ function SingleValue(props) {
   return _react.default.createElement(Single, props.innerProps, props.children);
 }
 
+var regions = [{
+  value: 'EMEA',
+  label: 'EMEA'
+}, {
+  value: 'APJ',
+  label: 'APJ'
+}, {
+  value: 'NA',
+  label: 'NA'
+}, {
+  value: 'LA',
+  label: 'LA'
+}, {
+  value: 'GLB',
+  label: 'GLOBAL'
+}];
+
 function useAccount(client) {
   var _useState = (0, _react.useState)({}),
       _useState2 = (0, _slicedToArray2.default)(_useState, 2),
@@ -63092,10 +63109,15 @@ function Index() {
       location = _useState8[0],
       setLocation = _useState8[1];
 
-  var _useState9 = (0, _react.useState)({}),
+  var _useState9 = (0, _react.useState)('EMEA'),
       _useState10 = (0, _slicedToArray2.default)(_useState9, 2),
-      user = _useState10[0],
-      setUser = _useState10[1]; //const updateAccount = useAccount(client);
+      region = _useState10[0],
+      setRegion = _useState10[1];
+
+  var _useState11 = (0, _react.useState)({}),
+      _useState12 = (0, _slicedToArray2.default)(_useState11, 2),
+      user = _useState12[0],
+      setUser = _useState12[1]; //const updateAccount = useAccount(client);
   // console.log('updatAccount', updateAccount);
 
 
@@ -63121,27 +63143,52 @@ function Index() {
     var options = newguests.map(function (guest) {
       return (0, _objectSpread2.default)({}, guest, {
         value: guest.navid,
-        label: guest.firstname + ' ' + guest.lastname
+        label: guest.firstname + ' ' + guest.lastname,
+        fullname: guest.firstname + ' ' + guest.lastname,
+        email: guest.firstname + '.' + guest.lastname + '@infor.com'
       });
     });
+    var teamsAr = teams.map(function (team) {
+      return (0, _objectSpread2.default)({}, team, {
+        label: team.description,
+        value: team.key
+      });
+    });
+    var locationsAr = locations.map(function (location) {
+      return (0, _objectSpread2.default)({}, location, {
+        label: location.description,
+        value: location.key
+      });
+    });
+    var inputvalues = (0, _objectSpread2.default)({}, user, {
+      team: team,
+      location: location,
+      region: region
+    });
+    console.log(inputvalues);
     return _react.default.createElement(Papier, null, _react.default.createElement(Header, null, "Create a new User"), _react.default.createElement(StyledSelect, {
       placeholder: "Select a new user from the list",
       options: options,
       onChange: function onChange(e) {
-        console.log(e);
         setUser(e);
       }
     }), _react.default.createElement(StyledSelect, {
       placeholder: "Select a team from the list",
-      options: teams,
+      options: teamsAr,
       onChange: function onChange(e) {
         return setTeam(e.value);
       }
     }), _react.default.createElement(StyledSelect, {
       placeholder: "Select a location",
-      options: locations,
+      options: locationsAr,
       onChange: function onChange(e) {
         return setLocation(e.value);
+      }
+    }), _react.default.createElement(StyledSelect, {
+      placeholder: "Select a region",
+      options: regions,
+      onChange: function onChange(e) {
+        return setRegion(e.value);
       }
     }), _react.default.createElement(StyledSelect, {
       placeholder: "Select a new user from the list",
@@ -63162,32 +63209,42 @@ function Index() {
         (0, _asyncToGenerator2.default)(
         /*#__PURE__*/
         _regenerator.default.mark(function _callee2() {
-          var input, result;
+          var id, firstname, lastname, fullname, navid, login, input, result;
           return _regenerator.default.wrap(function _callee2$(_context2) {
             while (1) {
               switch (_context2.prev = _context2.next) {
                 case 0:
+                  id = user.id, firstname = user.firstname, lastname = user.lastname, fullname = user.fullname, navid = user.navid, login = user.login;
                   input = {
-                    id: user.id,
-                    firstname: user.firstname
+                    id: id,
+                    firstname: firstname,
+                    lastname: lastname,
+                    fullname: fullname,
+                    navid: navid,
+                    login: login,
+                    team: team,
+                    location: location,
+                    region: region
                   };
+                  delete input.value;
+                  delete input.label;
                   console.log({
                     variables: {
                       input: input
                     }
                   });
-                  _context2.next = 4;
+                  _context2.next = 7;
                   return updateEmployee({
                     variables: {
                       input: input
                     }
                   });
 
-                case 4:
+                case 7:
                   result = _context2.sent;
                   console.log('result', result);
 
-                case 6:
+                case 9:
                 case "end":
                   return _context2.stop();
               }
@@ -63196,6 +63253,9 @@ function Index() {
         }))
       }, "Save Entry");
     }), _react.default.createElement(Button, {
+      onClick: function onClick() {
+        return window.location.replace('http://nlbavwixs.infor.com/ixs');
+      },
       color: "#fd7272"
     }, "Cancel")), _react.default.createElement("div", null, team, ":", location, ":", user.label));
   });
@@ -63251,7 +63311,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52153" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54534" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

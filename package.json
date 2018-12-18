@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf _js",
-    "build": "yarn run clean && webpack -p",
-    "start": "webpack -p"
+    "build": "parcel build index.html -d build --no-source-maps ",
+    "start": "parcel index.html -p 3000"
   },
   "author": "Joris Sparla <joris.sparla@gmail.com> (http://www.sparlanuenen.com/)",
   "license": "ISC",
